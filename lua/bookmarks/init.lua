@@ -25,7 +25,7 @@ local function has_annotation(file, lnum)
         and bookmarks[file]['line' .. lnum]['annotation']
 end
 
-function M.add(file, lnum, text)
+function M.add(file, lnum, text, context)
     logger.info('add bookmarks:')
     logger.info('         file:' .. file)
     logger.info('         lnum:' .. lnum)
@@ -48,6 +48,7 @@ function M.add(file, lnum, text)
         file = file,
         lnum = lnum,
         sign_id = extmark_id,
+        context = context
     }
     if text and text ~= '' then
         bookmarks[file]['line' .. lnum].annotation = text
@@ -160,7 +161,7 @@ function M.toggle()
         bookmarks[f]['line' .. lnum] = nil
         notify.notify('bookmark deleted.')
     else
-        M.add(f, lnum)
+        M.add(f, lnum, '', vim.api.nvim_get_current_line())
     end
 end
 
@@ -229,7 +230,7 @@ function M.setqflist()
             table.insert(qf, {
                 filename = f,
                 lnum = bm.lnum,
-                text = bm.annotation,
+                text = bm.annotation or bm.context,
             })
         end
     end
