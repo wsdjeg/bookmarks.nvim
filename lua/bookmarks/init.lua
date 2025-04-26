@@ -84,7 +84,7 @@ function M.setup(opt)
             vim.api.nvim_buf_set_var(ev.buf, 'bookmarks_init', true)
         end,
     })
-    vim.api.nvim_create_autocmd({ 'BufLeave' }, {
+    vim.api.nvim_create_autocmd({ 'BufLeave', 'VimLeave' }, {
         pattern = { '*' },
         group = augroup,
         callback = function(ev)
