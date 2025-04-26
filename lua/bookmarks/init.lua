@@ -25,12 +25,11 @@ local function has_annotation(file, lnum)
         and bookmarks[file]['line' .. lnum]['annotation']
 end
 
-function M.add(file, lnum, text, ...)
+function M.add(file, lnum, text)
     logger.info('add bookmarks:')
     logger.info('         file:' .. file)
     logger.info('         lnum:' .. lnum)
     logger.info('         text:' .. (text or ''))
-    -- logger.info('        a:000:' .. string(a:000))
     if not bookmarks then
         M.setup()
     end
