@@ -220,4 +220,8 @@ function M.setqflist()
   vim.cmd('botright copen')
 end
 
+function M.get()
+    return bookmarks
+end
+
 return M
