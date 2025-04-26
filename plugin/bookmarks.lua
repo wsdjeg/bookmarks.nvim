@@ -16,3 +16,15 @@ vim.keymap.set('n', '<Plug>(bookmarksNext)', '', {
     end,
     noremap = true,
 })
+vim.keymap.set('n', '<Plug>(bookmarksPrevious)', '', {
+    callback = function()
+        require('bookmarks').previous_bookmark()
+    end,
+    noremap = true,
+})
+vim.keymap.set('n', '<Plug>(bookmarksClear)', '', {
+    callback = function()
+        require('bookmarks').clear()
+    end,
+    noremap = true,
+})

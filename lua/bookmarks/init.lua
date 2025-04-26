@@ -164,4 +164,41 @@ function M.next_bookmark()
     end
 end
 
+function M.previous_bookmark()
+    if skip_current_buf() then
+        return
+    end
+    local f = util.unify_path(vim.api.nvim_buf_get_name(0))
+    if bookmarks and bookmarks[f] then
+        local bms = {}
+        for _, v in pairs(bookmarks[f]) do
+            table.insert(bms, v)
+        end
+        table.sort(bms, function(a, b)
+            return a.lnum > b.lnum
+        end)
+        for _, v in ipairs(bms) do
+            if v.lnum < vim.fn.line('.') then
+                vim.cmd(tostring(v.lnum))
+                return
+            end
+        end
+    end
+end
+
+function M.clear()
+    if skip_current_buf() then
+        return
+    end
+    local f = util.unify_path(vim.api.nvim_buf_get_name(0))
+    if bookmarks and bookmarks[f] then
+        for _, v in pairs(bookmarks[f]) do
+            vim.api.nvim_buf_del_extmark(0, ns, v.sign_id)
+        end
+        bookmarks[f] = nil
+        cache_manager.write(bookmarks)
+    end
+end
+
+
 return M
