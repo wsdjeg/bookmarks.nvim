@@ -21,8 +21,8 @@ end
 local function has_annotation(file, lnum)
     return bookmarks
         and bookmarks[file]
-        and bookmarks[file][lnum]
-        and bookmarks[file][lnum]['annotation']
+        and bookmarks[file]['line' .. lnum]
+        and bookmarks[file]['line' .. lnum]['annotation']
 end
 
 function M.add(file, lnum, text, ...)
@@ -45,13 +45,13 @@ function M.add(file, lnum, text, ...)
     end
 
     local extmark_id = vim.api.nvim_buf_set_extmark(0, ns, lnum - 1, 0, opt)
-    bookmarks[file][lnum] = {
-        file == file,
+    bookmarks[file]['line' .. lnum] = {
+        file = file,
         lnum = lnum,
         sign_id = extmark_id,
     }
     if text and text ~= '' then
-        bookmarks[file][lnum].annotation = text
+        bookmarks[file]['line' .. lnum].annotation = text
     end
     cache_manager.write(bookmarks)
     notify.notify('bookmark added.')
@@ -72,14 +72,23 @@ function M.annotation()
     if has_annotation(f, lnum) then
         local annotation = vim.fn.input({
             prompt = 'Annotation:',
-            default = bookmarks[f][lnum].annotation,
+            default = bookmarks[f]['line' .. lnum].annotation,
             cancelreturn = '',
         })
         if annotation ~= '' then
+            local sign_id = bookmarks[f]['line' .. lnum].sign_id
             vim.api.nvim_buf_set_extmark(0, ns, lnum - 1, 0, {
-                id = bookmarks[f][lnum].sign_id,
+                id = sign_id,
+                sign_text = config.sign_text,
+                sign_hl_group = config.sign_hl_group,
                 virt_text = { { annotation, 'Comment' } },
             })
+            bookmarks[f]['line' .. lnum] = {
+                file = f,
+                lnum = lnum,
+                sign_id = sign_id,
+                annotation = annotation,
+            }
         else
             notify.notify('canceled, no changes.')
         end
@@ -102,9 +111,9 @@ function M.toggle()
     end
     local f = util.unify_path(vim.api.nvim_buf_get_name(0))
     local lnum = vim.fn.line('.')
-    if bookmarks and bookmarks[f] and bookmarks[f][lnum] then
-        vim.api.nvim_buf_del_extmark(0, ns, bookmarks[f][lnum])
-        bookmarks[f][lnum] = nil
+    if bookmarks and bookmarks[f] and bookmarks[f]['line' .. lnum] then
+        vim.api.nvim_buf_del_extmark(0, ns, bookmarks[f]['line' .. lnum].sign_id)
+        bookmarks[f]['line' .. lnum] = nil
         notify.notify('bookmark deleted.')
     else
         M.add(f, lnum)
