@@ -13,6 +13,7 @@ require('plug').add({
         config = function()
             vim.keymap.set('n', 'mm', '<Plug>(bookmarksToggle)', { noremap = false })
         end,
+        depends = { { 'wsdjeg/notify.nvim' }, { 'wsdjeg/logger.nvim' } },
     },
 })
 ```
