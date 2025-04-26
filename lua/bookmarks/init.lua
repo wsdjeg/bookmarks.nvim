@@ -63,7 +63,38 @@ function M.setup(opt)
     config = require('bookmarks.config').setup(opt)
 end
 --- Add bookmark with annotation
-function M.annotation() end
+function M.annotation()
+    if skip_current_buf() then
+        return
+    end
+    local f = util.unify_path(vim.api.nvim_buf_get_name(0))
+    local lnum = vim.fn.line('.')
+    if has_annotation(f, lnum) then
+        local annotation = vim.fn.input({
+            prompt = 'Annotation:',
+            default = bookmarks[f][lnum].annotation,
+            cancelreturn = '',
+        })
+        if annotation ~= '' then
+            vim.api.nvim_buf_set_extmark(0, ns, lnum - 1, 0, {
+                id = bookmarks[f][lnum].sign_id,
+                virt_text = { { annotation, 'Comment' } },
+            })
+        else
+            notify.notify('canceled, no changes.')
+        end
+    else
+        local annotation = vim.fn.input({
+            prompt = 'Annotation:',
+            cancelreturn = '',
+        })
+        if annotation ~= '' then
+            M.add(f, lnum, annotation)
+        else
+            notify.notify('empty annotation, skipped!')
+        end
+    end
+end
 
 function M.toggle()
     if skip_current_buf() then
