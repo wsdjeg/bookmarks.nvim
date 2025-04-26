@@ -28,3 +28,9 @@ vim.keymap.set('n', '<Plug>(bookmarksClear)', '', {
     end,
     noremap = true,
 })
+vim.keymap.set('n', '<Plug>(bookmarksListAll)', '', {
+    callback = function()
+        require('bookmarks').setqflist()
+    end,
+    noremap = true,
+})

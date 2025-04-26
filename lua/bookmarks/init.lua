@@ -201,4 +201,23 @@ function M.clear()
     end
 end
 
+function M.setqflist()
+    
+  local qf = {}
+  for f, nrs in pairs(bookmarks) do
+    for _, bm in pairs(nrs) do
+      table.insert(qf, {
+            filename = f,
+            lnum = bm.lnum,
+            text = bm.annotation,
+            })
+    end
+  end
+  vim.fn.setqflist({}, 'r', {
+        title = 'Bookmarks',
+        items =  qf,
+        })
+  vim.cmd('botright copen')
+end
+
 return M
