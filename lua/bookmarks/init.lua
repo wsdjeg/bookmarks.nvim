@@ -72,11 +72,11 @@ function M.setup(opt)
             end
             local f = util.unify_path(vim.api.nvim_buf_get_name(ev.buf))
             if bookmarks[f] then
-                for lnum, bookmark in pairs(bookmarks[f]) do
-                    bookmarks.sign_id = vim.api.nvim_buf_set_extmark(ev.buf, ns, lnum, 0, {
+                for _, bookmark in pairs(bookmarks[f]) do
+                    bookmarks.sign_id = vim.api.nvim_buf_set_extmark(ev.buf, ns, bookmark.lnum, 0, {
                         sign_text = config.sign_text,
                         sign_hl_group = config.sign_hl_group,
-                        virt_text = { { bookmarks.annotation or '', 'Comment' } },
+                        virt_text = { { bookmark.annotation or '', 'Comment' } },
                     })
                 end
             end

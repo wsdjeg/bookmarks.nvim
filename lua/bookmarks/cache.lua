@@ -1,6 +1,6 @@
 local cache = vim.fn.stdpath('data') .. '\\nvim-bookmarks.json'
 
-local logger = require('code-runner.logger')
+local logger = require('bookmarks.logger')
 
 local M = {}
 
