@@ -2,6 +2,17 @@
 
 bookmarks.nvim is a simple bookmarks manager for neovim. It is inspired by [bookmarks.vim](https://github.com/wsdjeg/SpaceVim/tree/master/bundle/bookmarks.vim).
 
+<!-- vim-markdown-toc GFM -->
+
+* [Installation](#installation)
+* [Setup](#setup)
+* [Mappings](#mappings)
+* [Telescope extension](#telescope-extension)
+* [Self-Promotion](#self-promotion)
+* [License](#license)
+
+<!-- vim-markdown-toc -->
+
 ## Installation
 
 with [nvim-plug](https://github.com/wsdjeg/nvim-plug):
@@ -32,6 +43,21 @@ require('bookmarks').setup({
     sign_hl_group = 'Normal',
 })
 ```
+
+## Mappings
+
+| mappings                      | description                                 |
+| ----------------------------- | ------------------------------------------- |
+| `<Plug>(bookmarksToggle)`     | toggle bookmark of current line             |
+| `<Plug>(bookmarksAnnotation)` | add annotation bookmark                     |
+| `<Plug>(bookmarksNext)`       | jump to next bookmark in current buffer     |
+| `<Plug>(bookmarksClear)`      | clear bookmarks in current buffer           |
+| `<Plug>(bookmarksListAll)`    | list all bookmarks                          |
+| `<Plug>(bookmarksPrevious)`   | jump to previous bookmark in current buffer |
+
+## Telescope extension
+
+This plugin also provides a telescope extension, which can be started using the `:Telescope bookmarks` command.
 
 ## Self-Promotion
 
