@@ -9,7 +9,7 @@ local util = require('bookmarks.utils')
 local bookmarks
 
 local function skip_buf(buf)
-    if vim.fn.bufname(buf or 0) == '' then
+    if vim.api.nvim_buf_get_name(buf or 0) == '' then
         return true
     elseif vim.bo[buf or 0].buftype ~= '' then
         return true
@@ -96,8 +96,10 @@ function M.setup(opt)
                 local new_buf_bookmarks = {}
                 for _, bm in pairs(bookmarks[f]) do
                     local extmark = vim.api.nvim_buf_get_extmark_by_id(ev.buf, ns, bm.sign_id, {})
-                    bm.lnum = extmark[1] + 1
-                    new_buf_bookmarks['line' .. bm.lnum] = bm
+                    if extmark then
+                        bm.lnum = extmark[1] + 1
+                        new_buf_bookmarks['line' .. bm.lnum] = bm
+                    end
                 end
                 bookmarks[f] = new_buf_bookmarks
                 cache_manager.write(bookmarks)
@@ -222,22 +224,21 @@ function M.clear()
 end
 
 function M.setqflist()
-    
-  local qf = {}
-  for f, nrs in pairs(bookmarks) do
-    for _, bm in pairs(nrs) do
-      table.insert(qf, {
-            filename = f,
-            lnum = bm.lnum,
-            text = bm.annotation,
+    local qf = {}
+    for f, nrs in pairs(bookmarks) do
+        for _, bm in pairs(nrs) do
+            table.insert(qf, {
+                filename = f,
+                lnum = bm.lnum,
+                text = bm.annotation,
             })
+        end
     end
-  end
-  vim.fn.setqflist({}, 'r', {
+    vim.fn.setqflist({}, 'r', {
         title = 'Bookmarks',
-        items =  qf,
-        })
-  vim.cmd('botright copen')
+        items = qf,
+    })
+    vim.cmd('botright copen')
 end
 
 function M.get()
