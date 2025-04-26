@@ -18,6 +18,13 @@ local function skip_current_buf()
     end
 end
 
+local function has_annotation(file, lnum)
+    return bookmarks
+        and bookmarks[file]
+        and bookmarks[file][lnum]
+        and bookmarks[file][lnum]['annotation']
+end
+
 function M.add(file, lnum, text, ...)
     logger.info('add bookmarks:')
     logger.info('         file:' .. file)
@@ -38,7 +45,14 @@ function M.add(file, lnum, text, ...)
     end
 
     local extmark_id = vim.api.nvim_buf_set_extmark(0, ns, lnum - 1, 0, opt)
-    bookmarks[file][lnum] = extmark_id
+    bookmarks[file][lnum] = {
+        file == file,
+        lnum = lnum,
+        sign_id = extmark_id,
+    }
+    if text and text ~= '' then
+        bookmarks[file][lnum].annotation = text
+    end
     cache_manager.write(bookmarks)
     notify.notify('bookmark added.')
 end
@@ -48,6 +62,8 @@ function M.setup(opt)
 
     config = require('bookmarks.config').setup(opt)
 end
+--- Add bookmark with annotation
+function M.annotation() end
 
 function M.toggle()
     if skip_current_buf() then
