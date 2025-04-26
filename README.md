@@ -12,6 +12,12 @@ require('plug').add({
         'wsdjeg/bookmarks.nvim',
         config = function()
             vim.keymap.set('n', 'mm', '<Plug>(bookmarksToggle)', { noremap = false })
+            vim.keymap.set('n', 'mi', '<Plug>(bookmarksAnnotation)', { noremap = false })
+            vim.keymap.set('n', 'mn', '<Plug>(bookmarksNext)', { noremap = false })
+            vim.keymap.set('n', 'mc', '<Plug>(bookmarksClear)', { noremap = false })
+            vim.keymap.set('n', 'ma', '<Plug>(bookmarksListAll)', { noremap = false })
+            vim.keymap.set('n', 'mp', '<Plug>(bookmarksPrevious)', { noremap = false })
+            require('bookmarks').setup()
         end,
         depends = { { 'wsdjeg/notify.nvim' }, { 'wsdjeg/logger.nvim' } },
     },
