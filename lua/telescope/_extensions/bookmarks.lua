@@ -4,7 +4,7 @@ local conf = require('telescope.config').values
 local entry_display = require('telescope.pickers.entry_display')
 local finders = require('telescope.finders')
 local pickers = require('telescope.pickers')
-local file = require('spacevim.api.file')
+local util = require('bookmarks.utils')
 
 local function get_all_bookmarks()
   local p = {}
@@ -13,7 +13,7 @@ local function get_all_bookmarks()
   for f, l in pairs(bookmarks) do
     for nr, b in pairs(l) do
       table.insert(p, {
-        file = file.unify_path(f, ':.'),
+        file = util.unify_path(f, ':.'),
         linenr = nr,
         text = b.text or b.context,
       })
