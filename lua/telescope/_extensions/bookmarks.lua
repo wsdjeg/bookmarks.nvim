@@ -15,7 +15,7 @@ local function get_all_bookmarks()
       table.insert(p, {
         file = util.unify_path(f, ':.'),
         linenr = nr,
-        text = b.text or b.context,
+        text = b.annotation or b.context,
       })
     end
   end
@@ -27,12 +27,11 @@ local function show_changes(opts)
   local displayer = entry_display.create({
     separator = ' ',
     items = {
-      { width = 60 },
+      { width = 80 },
       { remaining = true },
     },
   })
   local function make_display(entry)
-    -- print(vim.inspect(entry))
     return displayer({
       { entry.value.file .. ':' .. entry.value.linenr, 'TelescopeResultsVariable' },
       { entry.value.text, 'TelescopeResultsComment' },
