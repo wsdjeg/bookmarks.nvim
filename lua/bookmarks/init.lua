@@ -8,10 +8,10 @@ local util = require('bookmarks.utils')
 
 local bookmarks
 
-local function skip_current_buf()
-    if vim.fn.bufname() == '' then
+local function skip_buf(buf)
+    if vim.fn.bufname(buf or 0) == '' then
         return true
-    elseif vim.o.buftype ~= '' then
+    elseif vim.bo[buf or 0].buftype ~= '' then
         return true
     else
         return false
@@ -67,7 +67,7 @@ function M.setup(opt)
         pattern = { '*' },
         group = augroup,
         callback = function(ev)
-            if skip_current_buf() or vim.b[ev.buf].bookmarks_init then
+            if skip_buf() or vim.b[ev.buf].bookmarks_init then
                 return
             end
             local f = util.unify_path(vim.api.nvim_buf_get_name(ev.buf))
@@ -84,11 +84,11 @@ function M.setup(opt)
             vim.api.nvim_buf_set_var(ev.buf, 'bookmarks_init', true)
         end,
     })
-    vim.api.nvim_create_autocmd({ 'BufLeave', 'VimLeave' }, {
+    vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
         pattern = { '*' },
         group = augroup,
         callback = function(ev)
-            if skip_current_buf() then
+            if skip_buf(ev.buf) then
                 return
             end
             local f = util.unify_path(vim.api.nvim_buf_get_name(ev.buf))
@@ -107,7 +107,7 @@ function M.setup(opt)
 end
 --- Add bookmark with annotation
 function M.annotation()
-    if skip_current_buf() then
+    if skip_buf() then
         return
     end
     local f = util.unify_path(vim.api.nvim_buf_get_name(0))
@@ -149,7 +149,7 @@ function M.annotation()
 end
 
 function M.toggle()
-    if skip_current_buf() then
+    if skip_buf() then
         return
     end
     local f = util.unify_path(vim.api.nvim_buf_get_name(0))
@@ -164,7 +164,7 @@ function M.toggle()
 end
 
 function M.next_bookmark()
-    if skip_current_buf() then
+    if skip_buf() then
         return
     end
     local f = util.unify_path(vim.api.nvim_buf_get_name(0))
@@ -186,7 +186,7 @@ function M.next_bookmark()
 end
 
 function M.previous_bookmark()
-    if skip_current_buf() then
+    if skip_buf() then
         return
     end
     local f = util.unify_path(vim.api.nvim_buf_get_name(0))
@@ -208,7 +208,7 @@ function M.previous_bookmark()
 end
 
 function M.clear()
-    if skip_current_buf() then
+    if skip_buf() then
         return
     end
     local f = util.unify_path(vim.api.nvim_buf_get_name(0))
