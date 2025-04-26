@@ -94,7 +94,7 @@ function M.setup(opt)
             local f = util.unify_path(vim.api.nvim_buf_get_name(ev.buf))
             if bookmarks[f] then
                 local new_buf_bookmarks = {}
-                for _, bm in bookmarks[f] do
+                for _, bm in pairs(bookmarks[f]) do
                     local extmark = vim.api.nvim_buf_get_extmark_by_id(ev.buf, ns, bm.sign_id, {})
                     bm.lnum = extmark[1] + 1
                     new_buf_bookmarks['line' .. bm.lnum] = bm
