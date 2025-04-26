@@ -10,3 +10,9 @@ vim.keymap.set('n', '<Plug>(bookmarksAnnotation)', '', {
     end,
     noremap = true,
 })
+vim.keymap.set('n', '<Plug>(bookmarksNext)', '', {
+    callback = function()
+        require('bookmarks').next_bookmark()
+    end,
+    noremap = true,
+})

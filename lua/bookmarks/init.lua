@@ -61,6 +61,28 @@ function M.setup(opt)
     bookmarks = cache_manager.read()
 
     config = require('bookmarks.config').setup(opt)
+
+    local augroup = vim.api.nvim_create_augroup('bookmarks.nvim', { clear = true })
+    vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+        pattern = { '*' },
+        group = augroup,
+        callback = function(ev)
+            if skip_current_buf() or vim.b[ev.buf].bookmarks_init then
+                return
+            end
+            local f = util.unify_path(vim.api.nvim_buf_get_name(ev.buf))
+            if bookmarks[f] then
+                for lnum, bookmark in pairs(bookmarks[f]) do
+                    bookmarks.sign_id = vim.api.nvim_buf_set_extmark(ev.buf, ns, lnum, 0, {
+                        sign_text = config.sign_text,
+                        sign_hl_group = config.sign_hl_group,
+                        virt_text = { { bookmarks.annotation or '', 'Comment' } },
+                    })
+                end
+            end
+            vim.api.nvim_buf_set_var(ev.buf, 'bookmarks_init', true)
+        end,
+    })
 end
 --- Add bookmark with annotation
 function M.annotation()
@@ -117,6 +139,28 @@ function M.toggle()
         notify.notify('bookmark deleted.')
     else
         M.add(f, lnum)
+    end
+end
+
+function M.next_bookmark()
+    if skip_current_buf() then
+        return
+    end
+    local f = util.unify_path(vim.api.nvim_buf_get_name(0))
+    if bookmarks and bookmarks[f] then
+        local bms = {}
+        for _, v in pairs(bookmarks[f]) do
+            table.insert(bms, v)
+        end
+        table.sort(bms, function(a, b)
+            return a.lnum < b.lnum
+        end)
+        for _, v in ipairs(bms) do
+            if v.lnum > vim.fn.line('.') then
+                vim.cmd(tostring(v.lnum))
+                return
+            end
+        end
     end
 end
 
