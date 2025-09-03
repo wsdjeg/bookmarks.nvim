@@ -14,7 +14,7 @@ local function get_all_bookmarks()
     for nr, b in pairs(l) do
       table.insert(p, {
         file = util.unify_path(f, ':.'),
-        linenr = nr,
+        linenr = tonumber(string.match(nr, '%d+')),
         text = b.annotation or b.context,
       })
     end
