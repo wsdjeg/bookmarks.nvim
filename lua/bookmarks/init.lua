@@ -8,6 +8,7 @@ local util = require('bookmarks.utils')
 
 local bookmarks
 
+--- @param buf? number buffer number
 local function skip_buf(buf)
     if vim.api.nvim_buf_get_name(buf or 0) == '' then
         return true
@@ -18,6 +19,8 @@ local function skip_buf(buf)
     end
 end
 
+--- @param file string path of file
+--- @param lnum number line number
 local function has_annotation(file, lnum)
     return bookmarks
         and bookmarks[file]
@@ -25,6 +28,10 @@ local function has_annotation(file, lnum)
         and bookmarks[file]['line' .. lnum]['annotation']
 end
 
+--- @param file string
+--- @param lnum number
+--- @param text? string
+--- @param context? string
 function M.add(file, lnum, text, context)
     logger.info('add bookmarks:')
     logger.info('         file:' .. file)
@@ -57,6 +64,7 @@ function M.add(file, lnum, text, context)
     notify.notify('bookmark added.')
 end
 
+---@param opt? BookmarksOpt
 function M.setup(opt)
     bookmarks = cache_manager.read()
 

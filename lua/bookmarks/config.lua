@@ -4,6 +4,10 @@ local default = {
 
 }
 
+--- @class BookmarksOpt
+--- @field sign_text string
+--- @field sign_hl_group string
+
 return {
 	setup = function(opt)
 		return vim.tbl_deep_extend("force", default, opt or {})
