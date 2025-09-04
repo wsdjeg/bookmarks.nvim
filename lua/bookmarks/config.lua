@@ -5,8 +5,8 @@ local default = {
 }
 
 --- @class BookmarksOpt
---- @field sign_text string
---- @field sign_hl_group string
+--- @field sign_text? string
+--- @field sign_hl_group? string
 
 return {
 	setup = function(opt)
