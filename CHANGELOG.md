@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/wsdjeg/bookmarks.nvim/compare/v1.0.0...v1.0.1) (2025-09-09)
+
+
+### Bug Fixes
+
+* handle bookmark lumn range ([792ce3a](https://github.com/wsdjeg/bookmarks.nvim/commit/792ce3aca558db4a491a9fccda3d8931be262c52))
+
 ## 1.0.0 (2025-04-26)
 
 
