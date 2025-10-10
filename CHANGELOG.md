@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/wsdjeg/bookmarks.nvim/compare/v1.0.1...v1.1.0) (2025-10-10)
+
+
+### Features
+
+* add bookmarks source for picker.nvim ([c0ea098](https://github.com/wsdjeg/bookmarks.nvim/commit/c0ea098567572e1833b0f8ceb4fcbc5601acb2cc))
+
 ## [1.0.1](https://github.com/wsdjeg/bookmarks.nvim/compare/v1.0.0...v1.0.1) (2025-09-09)
 
 
