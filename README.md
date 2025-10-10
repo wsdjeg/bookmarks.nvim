@@ -8,6 +8,7 @@ bookmarks.nvim is a simple bookmarks manager for neovim. It is inspired by [book
 - [Setup](#setup)
 - [Mappings](#mappings)
 - [Telescope extension](#telescope-extension)
+- [Picker.nvim source](#pickernvim-source)
 - [Self-Promotion](#self-promotion)
 - [License](#license)
 
@@ -58,6 +59,12 @@ require('bookmarks').setup({
 ## Telescope extension
 
 This plugin also provides a telescope extension, which can be started using the `:Telescope bookmarks` command.
+
+## Picker.nvim source
+
+```
+:Picker bookmarks
+```
 
 ## Self-Promotion
 
