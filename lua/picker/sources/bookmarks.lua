@@ -22,8 +22,8 @@ function M.get()
             str = string.format('%s:%d:%s', t.file, t.linenr, t.text),
             highlight = {
                 {
-                    #t.file + #tostring(t.linenr) + 1,
-                    #t.file + #tostring(t.linenr) + #t.text + 1,
+                    #t.file + #tostring(t.linenr) + 3,
+                    #t.file + #tostring(t.linenr) + #t.text + 3,
                     'Comment',
                 },
             },
