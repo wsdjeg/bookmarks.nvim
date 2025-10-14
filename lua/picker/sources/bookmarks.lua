@@ -23,7 +23,7 @@ function M.get()
             highlight = {
                 {
                     0,
-                    #t.file + #tostring(t.linenr) + 3,
+                    #t.file + #tostring(t.linenr) + 2,
                     'Comment',
                 },
             },
