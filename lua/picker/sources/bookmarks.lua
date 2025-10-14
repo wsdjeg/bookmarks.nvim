@@ -17,7 +17,11 @@ function M.get()
         end
     end
     return vim.tbl_map(function(t)
-        return { value = t, str = string.format('%s:%d:%s', t.file, t.linenr, t.text) }
+        return {
+            value = t,
+            str = string.format('%s:%d:%s', t.file, t.linenr, t.text),
+            highlight = { { #t.file + #tostring(t.linenr) + #t.text - 1, -1, 'Comment' } },
+        }
     end, p)
 end
 
