@@ -2,6 +2,11 @@
 
 bookmarks.nvim is a simple bookmarks manager for neovim. It is inspired by [bookmarks.vim](https://github.com/wsdjeg/SpaceVim/tree/master/bundle/bookmarks.vim).
 
+[![GitHub License](https://img.shields.io/github/license/wsdjeg/bookmarks.nvim)](LICENSE)
+[![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/wsdjeg/bookmarks.nvim)](https://github.com/wsdjeg/bookmarks.nvim/issues)
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/wsdjeg/bookmarks.nvim)](https://github.com/wsdjeg/bookmarks.nvim/commits/master/)
+[![GitHub Release](https://img.shields.io/github/v/release/wsdjeg/bookmarks.nvim)](https://github.com/wsdjeg/bookmarks.nvim/releases)
+
 <!-- vim-markdown-toc GFM -->
 
 - [Installation](#installation)
