@@ -10,7 +10,6 @@ bookmarks.nvim is a simple bookmarks manager for neovim. It is inspired by [book
 <!-- vim-markdown-toc GFM -->
 
 - [Installation](#installation)
-- [Setup](#setup)
 - [Mappings](#mappings)
 - [Telescope extension](#telescope-extension)
 - [Picker.nvim source](#pickernvim-source)
@@ -27,26 +26,20 @@ with [nvim-plug](https://github.com/wsdjeg/nvim-plug):
 require('plug').add({
     {
         'wsdjeg/bookmarks.nvim',
-        config = function()
-            vim.keymap.set('n', 'mm', '<Plug>(bookmarksToggle)', { noremap = false })
-            vim.keymap.set('n', 'mi', '<Plug>(bookmarksAnnotation)', { noremap = false })
-            vim.keymap.set('n', 'mn', '<Plug>(bookmarksNext)', { noremap = false })
-            vim.keymap.set('n', 'mc', '<Plug>(bookmarksClear)', { noremap = false })
-            vim.keymap.set('n', 'ma', '<Plug>(bookmarksListAll)', { noremap = false })
-            vim.keymap.set('n', 'mp', '<Plug>(bookmarksPrevious)', { noremap = false })
-            require('bookmarks').setup()
-        end,
+        keys = {
+            { 'n', 'mm', '<Plug>(bookmarksToggle)', { noremap = false } },
+            { 'n', 'mi', '<Plug>(bookmarksAnnotation)', { noremap = false } },
+            { 'n', 'mn', '<Plug>(bookmarksNext)', { noremap = false } },
+            { 'n', 'mc', '<Plug>(bookmarksClear)', { noremap = false } },
+            { 'n', 'ma', '<Plug>(bookmarksListAll)', { noremap = false } },
+            { 'n', 'mp', '<Plug>(bookmarksPrevious)', { noremap = false } },
+        },
+        opts = {
+            sign_text = '=>',
+            sign_hl_group = 'Normal',
+        },
         depends = { { 'wsdjeg/notify.nvim' }, { 'wsdjeg/logger.nvim' } },
     },
-})
-```
-
-## Setup
-
-```lua
-require('bookmarks').setup({
-    sign_text = '=>',
-    sign_hl_group = 'Normal',
 })
 ```
 
