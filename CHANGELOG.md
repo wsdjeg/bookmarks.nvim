@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.0](https://github.com/wsdjeg/bookmarks.nvim/compare/v1.0.1...v1.1.0) (2025-11-22)
+
+
+### Features
+
+* add bookmarks source for picker.nvim ([c0ea098](https://github.com/wsdjeg/bookmarks.nvim/commit/c0ea098567572e1833b0f8ceb4fcbc5601acb2cc))
+* add highlight to picker source ([885d185](https://github.com/wsdjeg/bookmarks.nvim/commit/885d1853f889c09ad45a2ba6d08eef697d68730d))
+* add luarocks support ([048c47e](https://github.com/wsdjeg/bookmarks.nvim/commit/048c47eec4ee5c0418b8f3e5aa39b6e2185477a3))
+
+
+### Bug Fixes
+
+* highlight filename as Comment ([3bdc67d](https://github.com/wsdjeg/bookmarks.nvim/commit/3bdc67d7c7e2cc12f19be36eb5480cb93b6f8a26))
+
 ## [1.0.1](https://github.com/wsdjeg/bookmarks.nvim/compare/v1.0.0...v1.0.1) (2025-09-09)
 
 
