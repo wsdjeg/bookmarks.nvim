@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/wsdjeg/bookmarks.nvim/compare/v1.1.0...v1.1.1) (2025-12-03)
+
+
+### Bug Fixes
+
+* update release-please action ([2dc605c](https://github.com/wsdjeg/bookmarks.nvim/commit/2dc605c82f5c969d302754509c17c7743d8c7139))
+
 ## [1.1.0](https://github.com/wsdjeg/bookmarks.nvim/compare/v1.0.1...v1.1.0) (2025-11-22)
 
 
