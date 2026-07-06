@@ -11,8 +11,8 @@ bookmarks.nvim is a simple bookmarks manager for neovim. It is inspired by [book
 
 - [Features](#features)
 - [Installation](#installation)
-  - [lazy.nvim](#lazynvim)
-  - [nvim-plug](#nvim-plug)
+    - [lazy.nvim](#lazynvim)
+    - [nvim-plug](#nvim-plug)
 - [Configuration](#configuration)
 - [Mappings](#mappings)
 - [Telescope extension](#telescope-extension)
@@ -36,7 +36,7 @@ bookmarks.nvim is a simple bookmarks manager for neovim. It is inspired by [book
 
 ## Installation
 
-### lazy.nvim
+### [lazy.nvim](https://github.com/folke/lazy.nvim)
 
 ```lua
 {
@@ -60,7 +60,7 @@ bookmarks.nvim is a simple bookmarks manager for neovim. It is inspired by [book
 }
 ```
 
-### nvim-plug
+### [nvim-plug](https://github.com/wsdjeg/nvim-plug)
 
 ```lua
 require('plug').add({
