@@ -1,0 +1,10 @@
+# Test dependencies
+test/.deps/
+
+# Swap files
+*.swp
+*.swo
+
+# Lua backup files
+*.lua~
+
