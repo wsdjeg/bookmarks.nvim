@@ -7,8 +7,8 @@ local utils = require('bookmarks.utils')
 TestBookmarks = {}
 
 function TestBookmarks:setUp()
-  -- Use temp cache file (unique with hrtime)
-  self.tmpfile = '/tmp/bookmarks_nvim_test_' .. tostring(vim.loop.hrtime()) .. '.json'
+  -- Use tempname() for cross-platform temp file
+  self.tmpfile = vim.fn.tempname() .. '.json'
   cache.set_path(self.tmpfile)
 
   -- Re-setup with clean cache
@@ -24,7 +24,7 @@ function TestBookmarks:setUp()
     'line 5',
   })
   -- Set buffer name so skip_buf returns false
-  local tmpname = '/tmp/bookmarks_test_file_' .. tostring(self.tmpbuf) .. '.lua'
+  local tmpname = vim.fn.tempname() .. '.lua'
   vim.api.nvim_buf_set_name(self.tmpbuf, tmpname)
   -- Set buftype to empty (normal buffer)
   vim.bo[self.tmpbuf].buftype = ''

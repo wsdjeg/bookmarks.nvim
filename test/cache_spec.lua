@@ -5,13 +5,12 @@ local cache = require('bookmarks.cache')
 TestCache = {}
 
 function TestCache:setUp()
-  -- Use a temp file for each test (unique with hrtime)
-  self.tmpfile = '/tmp/bookmarks_nvim_test_cache_' .. tostring(vim.loop.hrtime()) .. '.json'
+  -- Use tempname() for cross-platform temp file
+  self.tmpfile = vim.fn.tempname() .. '.json'
   cache.set_path(self.tmpfile)
 end
 
 function TestCache:tearDown()
-  -- Clean up temp file
   os.remove(self.tmpfile)
 end
 
@@ -33,7 +32,6 @@ function TestCache:testWriteAndRead()
 end
 
 function TestCache:testWriteNewFile()
-  -- Write to a file that doesn't exist yet
   local data = { test = 'value' }
   cache.write(data)
   lu.assertTrue(vim.fn.filereadable(self.tmpfile) == 1)
@@ -41,7 +39,6 @@ end
 
 function TestCache:testReadEmpty()
   local result = cache.read()
-  -- Non-existent file should return empty table
   lu.assertEquals(result, {})
 end
 
@@ -84,7 +81,7 @@ function TestCache:testOverwrite()
 end
 
 function TestCache:testSetPathGetPath()
-  local path = '/tmp/test_custom_path.json'
+  local path = vim.fn.tempname() .. '_custom.json'
   cache.set_path(path)
   lu.assertEquals(cache.get_path(), path)
 end
