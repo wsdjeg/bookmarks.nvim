@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.1.1](https://github.com/wsdjeg/bookmarks.nvim/compare/v1.1.0...v1.1.1) (2026-07-22)
+
+
+### Bug Fixes
+
+* update release-please action ([2dc605c](https://github.com/wsdjeg/bookmarks.nvim/commit/2dc605c82f5c969d302754509c17c7743d8c7139))
+
+
+### Documentation
+
+* add AGENTS.md project guide ([52e04db](https://github.com/wsdjeg/bookmarks.nvim/commit/52e04db103ecd73278ad7e428a651137faaeb75f))
+* fix TOC indentation and add links to lazy.nvim/nvim-plug sections ([770636b](https://github.com/wsdjeg/bookmarks.nvim/commit/770636b61eba65929ac0301bcef89bfedc14f9c6))
+* update README with comprehensive documentation ([3505481](https://github.com/wsdjeg/bookmarks.nvim/commit/35054812831f6514b750fc75b9d0cde6f8f8dcb2))
+
+
+### Tests
+
+* add test infrastructure and spec files ([5b3b84d](https://github.com/wsdjeg/bookmarks.nvim/commit/5b3b84d9822f7f688ed9fb93acfdb236489e5056))
+* fix temp file paths and assertion issues for Termux compatibility ([d5d447d](https://github.com/wsdjeg/bookmarks.nvim/commit/d5d447d26220db2f8c76bfe295bc9ea8511a0675))
+
 ## [1.1.0](https://github.com/wsdjeg/bookmarks.nvim/compare/v1.0.1...v1.1.0) (2025-11-22)
 
 
