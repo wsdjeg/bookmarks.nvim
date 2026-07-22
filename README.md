@@ -2,10 +2,12 @@
 
 bookmarks.nvim is a simple bookmarks manager for neovim. It is inspired by [bookmarks.vim](https://github.com/wsdjeg/SpaceVim/tree/master/bundle/bookmarks.vim).
 
+[![Run Tests](https://github.com/wsdjeg/bookmarks.nvim/actions/workflows/test.yml/badge.svg)](https://github.com/wsdjeg/bookmarks.nvim/actions/workflows/test.yml)
 [![GitHub License](https://img.shields.io/github/license/wsdjeg/bookmarks.nvim)](LICENSE)
 [![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/wsdjeg/bookmarks.nvim)](https://github.com/wsdjeg/bookmarks.nvim/issues)
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/m/wsdjeg/bookmarks.nvim)](https://github.com/wsdjeg/bookmarks.nvim/commits/master/)
 [![GitHub Release](https://img.shields.io/github/v/release/wsdjeg/bookmarks.nvim)](https://github.com/wsdjeg/bookmarks.nvim/releases)
+[![luarocks](https://img.shields.io/luarocks/v/wsdjeg/bookmarks.nvim)](https://luarocks.org/modules/wsdjeg/bookmarks.nvim)
 
 <!-- vim-markdown-toc GFM -->
 
@@ -169,3 +171,4 @@ Love this plugin? Follow [me](https://wsdjeg.net/) on
 ## License
 
 This project is licensed under the GPL-3.0 License.
+

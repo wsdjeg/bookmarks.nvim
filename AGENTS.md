@@ -31,7 +31,8 @@ Three types, use `@extract_memory` to store and `@recall_memory` to recall:
 2. Edit in reply                          # Modify what's needed
 3. @write_file action="overwrite"         # Write complete content
 4. @read_file filepath="target"           # Verify: check syntax, duplicates, correctness
-5. @git_add -> @git_commit -> @git_push     # One at a time, wait for each result
+5. @make target="test"                    # Run tests - MUST pass before committing
+6. @git_add -> @git_commit -> @git_push     # One at a time, wait for each result
 ```
 
 ### Git tools: one at a time
@@ -45,10 +46,10 @@ Never batch git calls. Send `@git_add`, wait for result, then `@git_commit`, wai
 After any code change, auto-execute without asking:
 
 ```
-Modify -> Verify -> git_add -> git_commit -> git_push -> Done
+Modify -> Verify -> make test -> git_add -> git_commit -> git_push -> Done
 ```
 
-**Never:** skip verification, read only partial file, modify without commit, commit without push.
+**Never:** skip verification, skip tests, read only partial file, modify without commit, commit without push.
 
 ---
 
@@ -105,6 +106,57 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/). Format: `ty
 
 ---
 
+## Testing
+
+Framework: **luaunit**. Files: `test/*_spec.lua`.
+
+### Running tests
+
+Run all tests:
+
+```
+@make target="test"
+```
+
+Run specific test file(s) with PATTERN:
+
+```
+@make target="test" args=["PATTERN=cache"]
+```
+
+PATTERN supports shorthand - `cache` expands to `test/**/*cache*_spec.lua`. Full paths also work:
+
+```
+@make target="test" args=["PATTERN=test/cache_spec.lua"]
+```
+
+### Writing tests
+
+```lua
+local lu = require('luaunit')
+
+TestExample = {}
+
+function TestExample:test_something()
+  lu.assertEquals(1 + 1, 2)
+end
+
+return TestExample
+```
+
+CI runs on push to main/master and PRs, across Neovim nightly/stable, ubuntu/windows/macos.
+
+### Test configuration
+
+Tests use mock modules in `test/notify.lua` and `test/logger.lua` to replace the real dependencies. The `test/minimal_init.lua` sets up `package.path` to load these mocks before the real modules.
+
+**Rules:**
+- Use `cache.set_path()` with a temp file in `setUp()` to isolate test data
+- Clean up temp files and buffers in `tearDown()`
+- Mock modules are in `test/` directory and loaded via `package.path`
+
+---
+
 ## Project Overview
 
 **bookmarks.nvim** is a simple bookmarks manager for Neovim, inspired by bookmarks.vim. It uses extmarks for bookmark display, JSON file for persistence, and supports telescope/picker.nvim integrations.
@@ -146,10 +198,25 @@ bookmarks.nvim/
 │           └── bookmarks.lua   # Picker.nvim source
 ├── plugin/
 │   └── bookmarks.lua       # <Plug> keymaps definitions
+├── test/
+│   ├── minimal_init.lua    # Headless test minimal config
+│   ├── run.lua             # luaunit test runner with PATTERN support
+│   ├── install_deps.lua    # Cross-platform dependency installer
+│   ├── notify.lua          # Mock notify.nvim module
+│   ├── logger.lua          # Mock logger.nvim module
+│   └── *_spec.lua          # Test specs (bookmarks, cache, config, utils)
+├── .github/
+│   ├── workflows/
+│   │   ├── test.yml            # CI test workflow
+│   │   ├── luarocks.yml        # LuaRocks publish workflow
+│   │   └── release-please.yml  # Automated release workflow
+│   ├── release-please-config.json  # release-please configuration
+│   └── release-please-manifest.json # release-please version manifest
 ├── CHANGELOG.md            # Auto-generated, DO NOT EDIT
 ├── README.md
 ├── LICENSE                 # GPL-3.0
-└── AGENTS.md
+├── AGENTS.md
+└── Makefile                # Test entry point
 ```
 
 ### Architecture Notes
